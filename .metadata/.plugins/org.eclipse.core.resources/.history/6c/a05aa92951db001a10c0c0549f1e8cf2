@@ -1,0 +1,81 @@
+package br.com.thecatapi.TestApi;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class TestApi {
+	
+	String vote_id;
+	
+	@BeforeClass
+	public static void urlBase() {
+		RestAssured.baseURI = "https://api.thecatapi.com/v1/";
+	}
+	
+	@Test
+	public void cadastro() {
+		
+		String url = "https://api.thecatapi.com/v1/user/passwordlesssignup";
+		String corpo = "{\"email\": \"evrasouza@gmail.com\", \"appDescription\": \"Testes The Cat API\"}";
+
+		Response response = given().contentType("application/json").body(corpo).when().post(url);
+		
+		response.then().body("message", containsString("SUCCESS")).statusCode(200);
+				
+		System.out.println("RETORNO => " + response.body().asString());
+		
+	}
+	
+	@Test
+	public void votacao() {
+		
+		String url = "https://api.thecatapi.com/v1/votes/";
+		
+		Response response = 
+				given().contentType("application/json").
+				body("{\"image_id\": \"5eg\", \"value\": \"true\", \"sub_id\": \"demo-56378a\"}").when().post(url);
+		
+		response.then().statusCode(200).body("message", containsString("SUCCESS"));
+				
+		System.out.println("RETORNO => " + response.body().asString());
+		
+		String id = response.jsonPath().getString("id");
+		vote_id = id;
+		System.out.println("ID => " + id);
+		
+		
+	}
+	
+	private void deletavoto() {
+		
+		String url = "https://api.thecatapi.com/v1/votes/{vote_id}";
+		
+		Response response = 
+				given()
+				.contentType("application/json")
+				.header("x-api-key", "77535984-0100-4db3-b7f1-e857bcf35c9f")
+				//.auth().basic(userName, password)
+				.pathParam("vote_id", vote_id)
+				.when().delete(url);
+		
+		System.out.println("RETORNO => " + response.body().asString());
+		
+		response.then().statusCode(200).body("message", containsString("SUCCESS"));
+				
+	}
+	
+	@Test
+	public void deletaVotacao() {
+		votacao();
+		deletavoto();
+	}
+
+
+	
+
+}

@@ -1,0 +1,57 @@
+package br.com.thecatapi.TestApi;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
+
+import org.junit.Test;
+
+import io.restassured.response.Response;
+
+public class Favorito {
+	
+	String vote_id;
+	
+	public void favoritar() {
+		
+		String url = "https://api.thecatapi.com/v1/votes/";
+		
+		Response response = 
+				given().contentType("application/json").
+				body("{\"image_id\": \"5eg\", \"value\": \"true\", \"sub_id\": \"demo-56378a\"}").when().post(url);
+		
+		response.then().statusCode(200).body("message", containsString("SUCCESS"));
+				
+		System.out.println("RETORNO => " + response.body().asString());
+		
+		String id = response.jsonPath().getString("id");
+		vote_id = id;
+		System.out.println("ID => " + id);
+		
+		
+	}
+	
+	private void deletafavorito() {
+		
+		String url = "https://api.thecatapi.com/v1/votes/{vote_id}";
+		
+		Response response = 
+				given()
+				.contentType("application/json")
+				.header("x-api-key", "77535984-0100-4db3-b7f1-e857bcf35c9f")
+				//.auth().basic(userName, password)
+				.pathParam("vote_id", vote_id)
+				.when().delete(url);
+		
+		System.out.println("RETORNO => " + response.body().asString());
+		
+		response.then().statusCode(200).body("message", containsString("SUCCESS"));
+				
+	}
+	
+	@Test
+	public void deletaVotacao() {
+		favoritar();
+		deletafavorito();
+	}
+
+}

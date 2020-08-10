@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestApi.votacao" project="TesteAPI" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="votacao" classname="TestApi" time="3.902"/>
+</testrun>

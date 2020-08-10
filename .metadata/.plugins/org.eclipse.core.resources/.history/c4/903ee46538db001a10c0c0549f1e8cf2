@@ -1,0 +1,15 @@
+import org.junit.Test;
+
+public class TestApi {
+	
+	@Test
+	public void cadastro() {
+		
+		String url = "https://api.thecatapi.com/v1/user/passwordlesssignup";
+		String body = "\"email\": \"evrasouza@gmail.com\", \"appDescription\": \"Teste The Cat API\"}";
+
+
+		
+	}
+
+}

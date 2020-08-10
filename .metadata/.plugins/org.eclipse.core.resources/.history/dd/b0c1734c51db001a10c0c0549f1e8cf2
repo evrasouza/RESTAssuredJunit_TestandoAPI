@@ -1,0 +1,9 @@
+package br.com.thecatapi.TestApi;
+
+public class massaDeDados {
+	
+	String vote_id;
+	String url = "user/passwordlesssignup";
+	String corpoCadastro = "{\"email\": \"evrasouza@gmail.com\", \"appDescription\": \"Testes The Cat API\"}";
+
+}

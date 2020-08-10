@@ -1,0 +1,23 @@
+import org.junit.Test;
+import static io.restassured.RestAssured.*;
+
+public class TestApi {
+	
+	@Test
+	public void cadastro() {
+		
+		String url = "https://api.thecatapi.com/v1/user/passwordlesssignup";
+		String corpo = "{\"email\": \"evrasouza@gmail.com\", \"appDescription\": \"Testes The Cat API\"}";
+
+		// DADO QUE
+		given().contentType("application/json").body(corpo)
+		
+		// QUANDO ESTIVER COM
+		.when().post(url)
+		
+		// ENTAO
+		.then().statusCode(200);
+		
+	}
+
+}

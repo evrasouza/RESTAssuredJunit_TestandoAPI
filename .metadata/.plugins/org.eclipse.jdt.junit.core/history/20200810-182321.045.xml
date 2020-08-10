@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Favorito.favoritaDesfavoritaq" project="TesteAPI" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="favoritaDesfavoritaq" classname="br.com.thecatapi.TestApi.Favorito" time="4.898"/>
+</testrun>
